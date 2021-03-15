@@ -3,6 +3,8 @@ import { useState } from 'react'
 import '../styles/tasklist.scss'
 
 import { FiTrash, FiCheckSquare } from 'react-icons/fi'
+
+import { useToasts } from 'react-toast-notifications' // SNACKBAR //
 interface Task {
   id: number;
   title: string;
@@ -13,21 +15,35 @@ export function TaskList() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [newTaskTitle, setNewTaskTitle] = useState('');
 
+  const { addToast} = useToasts()
+
   function handleCreateNewTask() {
     // Crie uma nova task com um id random, não permita criar caso o título seja vazio.
-    if(!newTaskTitle){
-      return;
-    }
+    // se estiver vazio vai exibir o snackbar //
+    if(newTaskTitle) {
+      const newTask = {
+        id: Math.random(), //gera um id aleatorio //
+        title: newTaskTitle, // texto a ser criado //
+        isComplete: false // valor inicial isComplete: false //
+      }
 
-    const newTask = {
-      id: Math.random(), //gera um id aleatorio //
-      title: newTaskTitle, // texto a ser criado //
-      isComplete: false // valor inicial isComplete: false //
-    }
-    // callback //
+        // callback //
     setTasks(oldTaskState => [...oldTaskState, newTask]); // spread operator  - adiciona um item ao array sem alterar o array //
+
+    addToast("Tarefa adicionada a lista!", {
+      appearance: 'info',
+      autoDismiss: true,
+    })
+
     setNewTaskTitle(''); // limpa o input apos adicionar uma nova Task //
+
+    } else {
+    addToast("Por favor, coloque um titulo na tarefa para adiciona-la a lista!", {
+      appearance: 'warning',
+      autoDismiss: true,
+    })
   }
+}
 
   function handleToggleTaskCompletion(id: number) {
     // Altere entre `true` ou `false` o campo `isComplete` de uma task com dado ID
@@ -37,8 +53,12 @@ export function TaskList() {
       ...task,
       isComplete: !task.isComplete
     } : task );
-    
+    console.log(newTaskComplete)
     setTasks( newTaskComplete );
+    addToast("TAREFA CONCLUIDA COM SUCESSO!", {
+      appearance: 'info',
+      autoDismiss: true,
+    })
   }
 
   function handleRemoveTask(id: number) {
@@ -47,7 +67,10 @@ export function TaskList() {
     const filteredTasks = tasks.filter( task => task.id !== id )
     setTasks( filteredTasks );
 
-
+    addToast("Esta tarefa foi deletada da lista.", {
+      appearance: 'error',
+      autoDismiss: true,
+    })
   }
 
   return (
@@ -96,4 +119,3 @@ export function TaskList() {
     </section>
   )
 }
-
