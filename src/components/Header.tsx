@@ -1,5 +1,6 @@
 import '../styles/header.scss'
 
+ import logo from '../../'
 export function Header() {
   return (
     <header className="header">

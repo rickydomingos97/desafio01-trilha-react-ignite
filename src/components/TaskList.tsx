@@ -46,19 +46,47 @@ export function TaskList() {
 }
 
   function handleToggleTaskCompletion(id: number) {
-    // Altere entre `true` ou `false` o campo `isComplete` de uma task com dado ID
+    // Altere entre `true` ou `false` o campo `isComplete` de uma task com dado ID //
+
+    const taskIndex = tasks.findIndex(task => task.id === id); // pegar a posição da tarefa que quer adicionar
+    tasks[taskIndex].isComplete // pegar o valor de isComplete dessa tarefa
+    
+    console.log(tasks[taskIndex].isComplete);
+    
+
 
     const newTaskComplete = tasks.map
     ( task => task.id === id ? {
       ...task,
       isComplete: !task.isComplete
     } : task );
-    console.log(newTaskComplete)
+    
     setTasks( newTaskComplete );
-    addToast("TAREFA CONCLUIDA COM SUCESSO!", {
-      appearance: 'info',
-      autoDismiss: true,
-    })
+
+    console.log(newTaskComplete);
+    
+
+     /*
+             addToast("Tarefa concluida com sucesso!", {
+        appearance: 'info',
+        autoDismiss: true,
+      })*/
+
+      if(tasks[taskIndex].isComplete) {
+        addToast("Tarefa pendente!", {
+          appearance: 'warning',
+          autoDismiss: true,
+        })
+      } else {
+        addToast("Tarefa concluida!", {
+          appearance: 'info',
+          autoDismiss: true,
+        })
+      }
+    
+
+    
+
   }
 
   function handleRemoveTask(id: number) {
