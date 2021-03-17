@@ -1,14 +1,13 @@
 import '../styles/header.scss'
-//import logo from '../../public/logo.svg'
-// <img src={ logo } alt="to.do"/>
-import logo from '../../logo.svg'
 
+import logo from '../../public/logo.svg'
+// <img src={ logo } alt="to.do"/>
 export function Header() {
   return (
     <header className="header">
       <div>
        
-        <img src="/logo.svg" alt="to.do"/>
+      <img src={ logo } alt="to.do"/>
       </div>
     </header>
   )
