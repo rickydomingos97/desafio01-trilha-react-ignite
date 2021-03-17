@@ -64,13 +64,7 @@ export function TaskList() {
     setTasks( newTaskComplete );
 
     console.log(newTaskComplete);
-    
 
-     /*
-             addToast("Tarefa concluida com sucesso!", {
-        appearance: 'info',
-        autoDismiss: true,
-      })*/
 
       if(tasks[taskIndex].isComplete) {
         addToast("Tarefa pendente!", {

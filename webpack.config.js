@@ -4,6 +4,19 @@ const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
+const CopyPlugin = require("copy-webpack-plugin");
+
+module.exports = {
+  plugins: [
+    new CopyPlugin({
+      patterns: [
+        { from: "source", to: "dest" },
+        { from: "public", to: "components" },
+      ],
+    }),
+  ],
+};
+
 module.exports = {
   mode: isDevelopment ? 'development' : 'production',
   devtool: isDevelopment ? 'eval-source-map' : 'source-map',
